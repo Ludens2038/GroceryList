@@ -20,7 +20,10 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
     }
 
     override fun onBindViewHolder(holder: MainDataHolder, position: Int) {
-        val title: String = mContext.getString(R.id.activity_main_list_element_title)
-        val drawable: Drawable? = mContext.getDrawable(R.drawable.recycle_bin)
+        val title: String = mContext.getString(mData[position].mTitle)
+        val drawable: Drawable? = mContext.getDrawable(mData[position].mDelete)
+
+        holder.mTitle.text = title
+        holder.mDelete.setImageDrawable(drawable)
     }
 }
