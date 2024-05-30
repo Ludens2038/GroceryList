@@ -20,13 +20,7 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
     }
 
     override fun onBindViewHolder(holder: MainDataHolder, position: Int) {
-        val drawable: Drawable? = mContext.getDrawable(mData[position].)
-        val title: String = mContext.getString(mData[position].title)
-
-        holder.mImage.setImageDrawable(drawable)
-
-        holder.itemView.findViewById<TextView>(R.id.activity_main_list_element_title).setOnClickListener {
-            Toast.makeText(mContext, "Content Clicked in Main List", Toast.LENGTH_SHORT).show()
-        }
+        val title: String = mContext.getString(R.id.activity_main_list_element_title)
+        val drawable: Drawable? = mContext.getDrawable(R.drawable.recycle_bin)
     }
 }

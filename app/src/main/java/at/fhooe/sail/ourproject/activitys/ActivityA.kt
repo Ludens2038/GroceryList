@@ -9,12 +9,14 @@ import at.fhooe.sail.ourproject.databinding.ActivityMainABinding
 class ActivityA : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainABinding
-    private val adapter = ProductAdapter(mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainABinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.activityAToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
