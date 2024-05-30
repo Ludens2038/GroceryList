@@ -30,14 +30,13 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val data: MutableList<MainData> = mutableListOf(
-            MainData("Liste Beispiel", R.drawable.recycle_bin)
+            MainData(R.id.activity_main_list_element_title, R.drawable.recycle_bin)
         )
 
         with(binding.activityMainRvList) {
             val pad = 10
-            val pad2 = 5
             layoutManager = GridLayoutManager(this@MainActivity, 1)
-            adapter = MainAdapter(data, this@MainActivity)
+            this.adapter = MainAdapter(data, this@MainActivity)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
                     outRect: Rect,
@@ -48,11 +47,18 @@ class MainActivity : AppCompatActivity() {
                     super.getItemOffsets(outRect, view, parent, state)
                     outRect.left = pad
                     outRect.right = pad
-                    outRect.top = pad2
-                    outRect.bottom = pad2
+                    outRect.top = pad
+                    outRect.bottom = pad
                 }
             })
 
         }
+
+        binding.activityMainBAddlist.setOnClickListener {
+            data.add(MainData(R.id.activity_main_list_element_title, R.drawable.recycle_bin))
+            binding.activityMainRvList.adapter?.notifyDataSetChanged()
+        }
+
+        
     }
 }

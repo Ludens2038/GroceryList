@@ -1,3 +1,3 @@
 package at.fhooe.sail.ourproject
 
-data class MainData (val title: String, val delete: Int)
+data class MainData (val mTitle: Int, val mDelete: Int)
