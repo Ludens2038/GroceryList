@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.MainAdapter
 import at.fhooe.sail.ourproject.MainData
 import at.fhooe.sail.ourproject.R
-import at.fhooe.sail.ourproject.activitys.ListItemAdapter
-import at.fhooe.sail.ourproject.activitys.ListItemData
 import at.fhooe.sail.ourproject.databinding.ActivityABinding
 
 class ActivityA : AppCompatActivity() {
@@ -50,7 +48,7 @@ class ActivityA : AppCompatActivity() {
 
         }
 
-        binding.activityAAdd.setOnClickListener {
+        binding.activityAAddlist.setOnClickListener {
             data.add(ListItemData(R.id.list_item_textView, R.drawable.recycle_bin))
             binding.activityARecyclerview.adapter?.notifyDataSetChanged()
         }

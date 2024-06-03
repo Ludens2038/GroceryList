@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/activity_a_addlist"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="+"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_a_toolbar"
         android:layout_width="0dp"
@@ -31,33 +42,8 @@
         android:id="@+id/activity_a_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/activity_a_toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/activity_a_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_a_add"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/activity_a_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hinzufügen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/activity_a_remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Markierte entfernen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/activity_a_add" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_a_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
