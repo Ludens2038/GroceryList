@@ -12,7 +12,7 @@ import at.fhooe.sail.ourproject.R
         RecyclerView.Adapter<ListDataHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDataHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.activity_main_list_element, null)
+            val view = inflater.inflate(R.layout.activity_a_list_element, null)
             return ListDataHolder(view)
         }
 
