@@ -28,6 +28,7 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
         holder.mTitle.text = title
         holder.mDelete.setImageDrawable(drawable)
 
+        //wenn man ein element anklickt soll nächster intent aufgemacht werden
         holder.root.setOnClickListener {
             val intent = Intent(mContext, ActivityA::class.java)
             mContext.startActivity(intent)

@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             builder.setPositiveButton("OK"){ _, _ ->
                 val title = input.text.toString()
                 if (title.isNotEmpty()) {
-                    // Neues Element zur Liste hinzufügen
                     data.add(MainData(title, R.drawable.recycle_bin))
                     binding.activityMainRvList.adapter?.notifyDataSetChanged()
                 }
