@@ -3,6 +3,8 @@ package at.fhooe.sail.ourproject.activitys
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +25,7 @@ class ActivityA : AppCompatActivity() {
         setSupportActionBar(binding.activityAToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val data: MutableList<ListItemData> = mutableListOf(
-            ListItemData(R.id.list_item_textView, R.drawable.recycle_bin),
-        )
+        val data: MutableList<ListItemData> = mutableListOf()
 
         with(binding.activityARecyclerview) {
             val pad = 10
@@ -49,8 +49,22 @@ class ActivityA : AppCompatActivity() {
         }
 
         binding.activityAAddlist.setOnClickListener {
-            data.add(ListItemData(R.id.list_item_textView, R.drawable.recycle_bin))
-            binding.activityARecyclerview.adapter?.notifyDataSetChanged()
+            val builder = AlertDialog.Builder(this)
+            val input = EditText(this)
+            builder.setView(input)
+            builder.setTitle("Bitte bennen Sie die Liste")
+            builder.setPositiveButton("OK") { _, _ ->
+                val title = input.text.toString()
+                if (title.isNotEmpty()) {
+                    // Neues Element zur Liste hinzufügen
+                    data.add(ListItemData(title, R.drawable.recycle_bin))
+                    binding.activityARecyclerview.adapter?.notifyDataSetChanged()
+                }
+            }
+            builder.setNegativeButton("Abbrechen") { dialog, _ ->
+                dialog.cancel()
+            }
+            builder.show()
         }
 
 
