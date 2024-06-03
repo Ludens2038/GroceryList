@@ -20,10 +20,17 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
     }
 
     override fun onBindViewHolder(holder: MainDataHolder, position: Int) {
-        val title: String = mContext.getString(mData[position].mTitle)
+        val title: String = mData[position].mTitle
         val drawable: Drawable? = mContext.getDrawable(mData[position].mDelete)
 
         holder.mTitle.text = title
         holder.mDelete.setImageDrawable(drawable)
+
+        holder.mDelete.setOnClickListener {
+            val deletedTitle = mData[position].mTitle
+            mData.removeAt(position)
+            notifyDataSetChanged()
+            Toast.makeText(mContext, "$deletedTitle gelöscht", Toast.LENGTH_SHORT).show()
+        }
     }
 }

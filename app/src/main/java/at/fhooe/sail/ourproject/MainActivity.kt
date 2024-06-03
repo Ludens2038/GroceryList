@@ -3,19 +3,12 @@ package at.fhooe.sail.ourproject
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.databinding.ActivityMainBinding
-
-const val TAG: String = "ListTest"
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,9 +22,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.activityMainToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val data: MutableList<MainData> = mutableListOf(
-            MainData(R.id.activity_main_list_element_title, R.drawable.recycle_bin)
-        )
+        val data: MutableList<MainData> = mutableListOf()
 
         with(binding.activityMainRvList) {
             val pad = 10
@@ -55,10 +46,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.activityMainBAddlist.setOnClickListener {
-            data.add(MainData(R.id.activity_main_list_element_title, R.drawable.recycle_bin))
-            binding.activityMainRvList.adapter?.notifyDataSetChanged()
+            val builder = AlertDialog.Builder(this)
+            val input = EditText(this)
+            builder.setView(input)
+            builder.setTitle("Bitte bennen Sie die Liste")
+            builder.setPositiveButton("OK"){ _, _ ->
+                val title = input.text.toString()
+                if (title.isNotEmpty()) {
+                    // Neues Element zur Liste hinzufügen
+                    data.add(MainData(title, R.drawable.recycle_bin))
+                    binding.activityMainRvList.adapter?.notifyDataSetChanged()
+                }
+            }
+            builder.setNegativeButton("Abbrechen") { dialog, _ ->
+                dialog.cancel()
+            }
+            builder.show()
         }
-
-        
     }
 }
