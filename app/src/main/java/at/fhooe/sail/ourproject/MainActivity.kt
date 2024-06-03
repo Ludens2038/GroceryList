@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.activityMainToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Titel der App-Bar gesetzt
         supportActionBar?.title = "Meine Listen"
