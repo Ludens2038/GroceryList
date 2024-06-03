@@ -1,11 +1,17 @@
 package at.fhooe.sail.ourproject
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.databinding.ActivityMainBinding
@@ -21,6 +27,43 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.activityMainToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        //Titel der App-Bar gesetzt
+        supportActionBar?.title = "Meine Listen"
+
+        addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(_menu: Menu, _menuInflater: MenuInflater) {
+                _menuInflater.inflate(R.menu.menue, _menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.activity_main_menuitem_about -> {
+                        val intent = Intent(this@MainActivity, Informations::class.java)
+                        startActivity(intent)
+                        return true
+                    }
+                    R.id.activity_main_menuitem_changetitle -> {
+                        val builder = AlertDialog.Builder(this@MainActivity)
+                        val input = EditText(this@MainActivity)
+                        builder.setView(input)
+                        builder.setTitle("Bitte geben Sie den neuen Titel ein")
+                        builder.setPositiveButton("OK") { _, _ ->
+                            val newTitle = input.text.toString()
+                            if (newTitle.isNotEmpty()) {
+                                supportActionBar?.title = newTitle
+                            }
+                        }
+                        builder.setNegativeButton("Abbrechen") { dialog, _ ->
+                            dialog.cancel()
+                        }
+                        builder.show()
+                        return true
+                    }
+                    else -> return false
+                }
+            }
+        })
 
         val data: MutableList<MainData> = mutableListOf()
 

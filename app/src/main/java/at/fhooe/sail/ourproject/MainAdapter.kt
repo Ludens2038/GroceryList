@@ -5,8 +5,9 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.activitys.ActivityA
 
@@ -28,10 +29,31 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
         holder.mTitle.text = title
         holder.mDelete.setImageDrawable(drawable)
 
-        //wenn man ein element anklickt soll nächster intent aufgemacht werden
         holder.root.setOnClickListener {
             val intent = Intent(mContext, ActivityA::class.java)
             mContext.startActivity(intent)
+        }
+
+        holder.root.setOnLongClickListener{
+            val builder = AlertDialog.Builder(mContext)
+            val input = EditText(mContext)
+            input.setText(title)
+            builder.setView(input)
+            builder.setTitle("Name der Liste ändern")
+            builder.setPositiveButton("OK"){ _, _ ->
+                val newTitle = input.text.toString()
+                if(newTitle.isNotEmpty()){
+                    mData[position].mTitle = newTitle
+                    notifyDataSetChanged()
+                    Toast.makeText(mContext, "Titel geändert zu $newTitle", Toast.LENGTH_SHORT).show()
+                }
+            }
+            builder.setNegativeButton("Abbruch"){ dialog, _ ->
+                dialog.cancel()
+            }
+            builder.show()
+
+            true
         }
 
         holder.mDelete.setOnClickListener {
