@@ -21,7 +21,14 @@ import at.fhooe.sail.ourproject.R
         }
 
         override fun onBindViewHolder(holder: ListDataHolder, position: Int) {
-            val Item: String = mContext.getString(mData[position].mItem)
+            val Item: String = mData[position].mItem
             val drawable: Drawable? = mContext.getDrawable(mData[position].mDelete)
+
+            holder.mItem.text = Item
+            holder.mDelete.setImageDrawable(drawable)
+            holder.mDelete.setOnClickListener {
+                mData.removeAt(position)
+                notifyDataSetChanged()
+            }
         }
     }
