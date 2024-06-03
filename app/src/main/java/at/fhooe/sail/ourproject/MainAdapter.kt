@@ -25,5 +25,11 @@ class MainAdapter(val mData: MutableList<MainData>, val mContext: Context) : Rec
 
         holder.mTitle.text = title
         holder.mDelete.setImageDrawable(drawable)
+
+        holder.mDelete.setOnClickListener {
+            mData.removeAt(position)
+            notifyDataSetChanged()
+            Toast.makeText(mContext, "Liste gelöscht", Toast.LENGTH_SHORT).show()
+        }
     }
 }
