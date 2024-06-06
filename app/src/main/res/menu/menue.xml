@@ -7,6 +7,9 @@
         android:icon="@drawable/change_title"
         android:title="Change Title" />
     <item
+        android:id="@+id/activity_main_menuitem_changebackground"
+        android:title="Change Background" />
+    <item
         android:id="@+id/activity_main_menuitem_changelistcolor"
         android:title="Change List Color" />
     <item

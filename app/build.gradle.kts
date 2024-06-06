@@ -41,7 +41,8 @@ android {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.github.yukuku:ambilwarna:2.0.1") // Color picker
+    implementation("com.google.code.gson:gson:2.8.8") // Gson
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
