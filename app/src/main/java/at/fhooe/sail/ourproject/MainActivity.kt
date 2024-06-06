@@ -1,5 +1,6 @@
 package at.fhooe.sail.ourproject
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
@@ -15,22 +16,29 @@ import androidx.core.view.MenuProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.databinding.ActivityMainBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import at.fhooe.sail.ourproject.activitys.ActivityA
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private val data: MutableList<MainData> = mutableListOf()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.activityMainToolbar)
 
-        //Titel der App-Bar gesetzt
+        // Titel der App-Bar gesetzt
         supportActionBar?.title = "Meine Listen"
 
-        addMenuProvider(object : MenuProvider{
+        // Daten aus SharedPreferences abrufen
+        loadDataFromPreferences()
+
+        addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(_menu: Menu, _menuInflater: MenuInflater) {
                 _menuInflater.inflate(R.menu.menue, _menu)
             }
@@ -64,8 +72,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val data: MutableList<MainData> = mutableListOf()
-
         with(binding.activityMainRvList) {
             val pad = 10
             layoutManager = GridLayoutManager(this@MainActivity, 1)
@@ -84,19 +90,19 @@ class MainActivity : AppCompatActivity() {
                     outRect.bottom = pad
                 }
             })
-
         }
 
         binding.activityMainBAddlist.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             val input = EditText(this)
             builder.setView(input)
-            builder.setTitle("Bitte bennen Sie die Liste")
-            builder.setPositiveButton("OK"){ _, _ ->
+            builder.setTitle("Bitte benennen Sie die Liste")
+            builder.setPositiveButton("OK") { _, _ ->
                 val title = input.text.toString()
                 if (title.isNotEmpty()) {
                     data.add(MainData(title, R.drawable.recycle_bin))
                     binding.activityMainRvList.adapter?.notifyDataSetChanged()
+                    saveDataToPreferences()
                 }
             }
             builder.setNegativeButton("Abbrechen") { dialog, _ ->
@@ -104,5 +110,28 @@ class MainActivity : AppCompatActivity() {
             }
             builder.show()
         }
+    }
+
+    private fun saveDataToPreferences() {
+        val sharedPreferences = getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val jsonData = gson.toJson(data)
+        editor.putString("main_data", jsonData)
+        editor.apply()
+    }
+
+    private fun loadDataFromPreferences() {
+        val sharedPreferences = getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val jsonData = sharedPreferences.getString("main_data", null)
+        val type = object : TypeToken<MutableList<MainData>>() {}.type
+        val savedData: MutableList<MainData> = gson.fromJson(jsonData, type) ?: mutableListOf()
+        data.addAll(savedData)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveDataToPreferences()
     }
 }

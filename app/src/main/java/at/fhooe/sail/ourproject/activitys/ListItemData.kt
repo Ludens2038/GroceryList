@@ -1,4 +1,6 @@
 package at.fhooe.sail.ourproject.activitys
 
-data class ListItemData (val mItem: String, val mDelete: Int)
+import java.io.Serializable
+
+data class ListItemData(val mItem: String, val mDelete: Int) : Serializable
 

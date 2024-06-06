@@ -6,29 +6,38 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.R
+import com.google.gson.Gson
 
+class ListItemAdapter(private val mData: MutableList<ListItemData>, private val mContext: Context) :
+    RecyclerView.Adapter<ListDataHolder>() {
 
-    class ListItemAdapter(val mData: MutableList<ListItemData>, val mContext: Context) :
-        RecyclerView.Adapter<ListDataHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDataHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val view = inflater.inflate(R.layout.activity_a_list_element, null)
-            return ListDataHolder(view)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDataHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(R.layout.activity_a_list_element, parent, false)
+        return ListDataHolder(view)
+    }
 
-        override fun getItemCount(): Int {
-            return mData.size
-        }
+    override fun getItemCount(): Int = mData.size
 
-        override fun onBindViewHolder(holder: ListDataHolder, position: Int) {
-            val Item: String = mData[position].mItem
-            val drawable: Drawable? = mContext.getDrawable(mData[position].mDelete)
+    override fun onBindViewHolder(holder: ListDataHolder, position: Int) {
+        val item: String = mData[position].mItem
+        val drawable: Drawable? = mContext.getDrawable(mData[position].mDelete)
 
-            holder.mItem.text = Item
-            holder.mDelete.setImageDrawable(drawable)
-            holder.mDelete.setOnClickListener {
-                mData.removeAt(position)
-                notifyDataSetChanged()
-            }
+        holder.mItem.text = item
+        holder.mDelete.setImageDrawable(drawable)
+        holder.mDelete.setOnClickListener {
+            mData.removeAt(position)
+            notifyDataSetChanged()
+            saveDataToPreferences(mData)  // Speichern der aktualisierten Liste
         }
     }
+
+    private fun saveDataToPreferences(data: List<ListItemData>) {
+        val sharedPreferences = mContext.getSharedPreferences("sublist_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val jsonData = gson.toJson(data)
+        editor.putString((mContext as ActivityA).listTitle, jsonData)  // Verwenden Sie den Listennamen als Schlüssel
+        editor.apply()
+    }
+}
