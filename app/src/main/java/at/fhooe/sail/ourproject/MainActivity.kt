@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         with(binding.activityMainRvList) {
-            val pad = 10
+            val pad = 15
             layoutManager = GridLayoutManager(this@MainActivity, 1)
             this.adapter = MainAdapter(data, this@MainActivity)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -92,8 +92,6 @@ class MainActivity : AppCompatActivity() {
                     state: RecyclerView.State
                 ) {
                     super.getItemOffsets(outRect, view, parent, state)
-                    outRect.left = pad
-                    outRect.right = pad
                     outRect.top = pad
                     outRect.bottom = pad
                 }

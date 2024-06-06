@@ -34,6 +34,12 @@ class MainAdapter(private val mData: MutableList<MainData>, private val mContext
         holder.root.setOnClickListener {
             val intent = Intent(mContext, ActivityA::class.java)
             intent.putExtra("list_title", title)
+
+            // Hintergrundbild von SharedPreferences laden und hinzufügen
+            val sharedPreferences = mContext.getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
+            val backgroundImage = sharedPreferences.getInt("background_image", R.drawable.background1)
+            intent.putExtra("background_image", backgroundImage)
+
             mContext.startActivity(intent)
         }
 

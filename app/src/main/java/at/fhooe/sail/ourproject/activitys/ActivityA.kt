@@ -20,6 +20,7 @@ class ActivityA : AppCompatActivity() {
 
     lateinit var binding: ActivityABinding
     lateinit var listTitle: String
+    private var currentBackgroundImage: Int = R.drawable.background1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +34,14 @@ class ActivityA : AppCompatActivity() {
 
         supportActionBar?.title = listTitle
 
+        // Hintergrundbild von Intent übernehmen und anwenden
+        currentBackgroundImage = intent.getIntExtra("background_image", R.drawable.background1)
+        binding.root.setBackgroundResource(currentBackgroundImage)
+
         val data: MutableList<ListItemData> = loadDataFromPreferences() ?: mutableListOf()
 
         with(binding.activityARecyclerview) {
-            val pad = 10
+            val pad = 15
             layoutManager = GridLayoutManager(this@ActivityA, 1)
             this.adapter = ListItemAdapter(data, this@ActivityA)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -47,8 +52,6 @@ class ActivityA : AppCompatActivity() {
                     state: RecyclerView.State
                 ) {
                     super.getItemOffsets(outRect, view, parent, state)
-                    outRect.left = pad
-                    outRect.right = pad
                     outRect.top = pad
                     outRect.bottom = pad
                 }

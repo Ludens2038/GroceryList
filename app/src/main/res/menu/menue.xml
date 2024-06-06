@@ -10,12 +10,6 @@
         android:id="@+id/activity_main_menuitem_changebackground"
         android:title="Change Background" />
     <item
-        android:id="@+id/activity_main_menuitem_changelistcolor"
-        android:title="Change List Color" />
-    <item
-        android:id="@+id/activity_main_menuitem_changeitemcolor"
-        android:title="Change Item Color" />
-    <item
         android:id="@+id/activity_main_menuitem_about"
         android:icon="@drawable/information_icon"
         android:title="About" />
