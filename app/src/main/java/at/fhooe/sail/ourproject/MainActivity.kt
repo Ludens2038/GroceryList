@@ -32,10 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.activityMainToolbar)
 
-        // Titel der App-Bar gesetzt
-        supportActionBar?.title = "Meine Listen"
+        supportActionBar?.title = loadAppBarTitle()
 
-        // Daten aus SharedPreferences abrufen
         loadDataFromPreferences()
 
         addMenuProvider(object : MenuProvider {
@@ -54,14 +52,15 @@ class MainActivity : AppCompatActivity() {
                         val builder = AlertDialog.Builder(this@MainActivity)
                         val input = EditText(this@MainActivity)
                         builder.setView(input)
-                        builder.setTitle("Bitte geben Sie den neuen Titel ein")
+                        builder.setTitle("What is the new title?")
                         builder.setPositiveButton("OK") { _, _ ->
                             val newTitle = input.text.toString()
                             if (newTitle.isNotEmpty()) {
                                 supportActionBar?.title = newTitle
+                                saveAppBarTitle(newTitle)
                             }
                         }
-                        builder.setNegativeButton("Abbrechen") { dialog, _ ->
+                        builder.setNegativeButton("Abort") { dialog, _ ->
                             dialog.cancel()
                         }
                         builder.show()
@@ -96,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             val input = EditText(this)
             builder.setView(input)
-            builder.setTitle("Bitte benennen Sie die Liste")
+            builder.setTitle("Please name your list")
             builder.setPositiveButton("OK") { _, _ ->
                 val title = input.text.toString()
                 if (title.isNotEmpty()) {
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     saveDataToPreferences()
                 }
             }
-            builder.setNegativeButton("Abbrechen") { dialog, _ ->
+            builder.setNegativeButton("Abort") { dialog, _ ->
                 dialog.cancel()
             }
             builder.show()
@@ -128,6 +127,18 @@ class MainActivity : AppCompatActivity() {
         val type = object : TypeToken<MutableList<MainData>>() {}.type
         val savedData: MutableList<MainData> = gson.fromJson(jsonData, type) ?: mutableListOf()
         data.addAll(savedData)
+    }
+
+    private fun saveAppBarTitle(title: String) {
+        val sharedPreferences = getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("app_bar_title", title)
+        editor.apply()
+    }
+
+    private fun loadAppBarTitle(): String {
+        val sharedPreferences = getSharedPreferences("main_prefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("app_bar_title", "My lists") ?: "My lists"
     }
 
     override fun onPause() {

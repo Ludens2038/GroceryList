@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import at.fhooe.sail.ourproject.R
 import com.google.gson.Gson
@@ -25,10 +26,13 @@ class ListItemAdapter(private val mData: MutableList<ListItemData>, private val 
 
         holder.mItem.text = item
         holder.mDelete.setImageDrawable(drawable)
+
         holder.mDelete.setOnClickListener {
+            val deletedEntry = mData[position].mItem
             mData.removeAt(position)
             notifyDataSetChanged()
             saveDataToPreferences(mData)  // Speichern der aktualisierten Liste
+            Toast.makeText(mContext, "Entry '$deletedEntry' deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

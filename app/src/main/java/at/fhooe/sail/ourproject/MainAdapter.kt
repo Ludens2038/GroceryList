@@ -43,17 +43,17 @@ class MainAdapter(private val mData: MutableList<MainData>, private val mContext
             val input = EditText(mContext)
             input.setText(title)
             builder.setView(input)
-            builder.setTitle("Name der Liste ändern")
+            builder.setTitle("Change Title")
             builder.setPositiveButton("OK") { _, _ ->
                 val newTitle = input.text.toString()
                 if (newTitle.isNotEmpty()) {
                     mData[position].mTitle = newTitle
                     notifyDataSetChanged()
                     saveDataToPreferences()  // Daten in SharedPreferences speichern
-                    Toast.makeText(mContext, "Titel geändert zu $newTitle", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "Title changed to $newTitle", Toast.LENGTH_SHORT).show()
                 }
             }
-            builder.setNegativeButton("Abbruch") { dialog, _ ->
+            builder.setNegativeButton("Abort") { dialog, _ ->
                 dialog.cancel()
             }
             builder.show()
@@ -65,7 +65,7 @@ class MainAdapter(private val mData: MutableList<MainData>, private val mContext
             mData.removeAt(position)
             notifyDataSetChanged()
             deleteDataFromPreferences(deletedTitle)  // Daten aus SharedPreferences löschen
-            Toast.makeText(mContext, "$deletedTitle gelöscht", Toast.LENGTH_SHORT).show()
+            Toast.makeText(mContext, "List $deletedTitle deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

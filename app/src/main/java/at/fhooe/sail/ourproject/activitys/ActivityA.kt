@@ -3,6 +3,7 @@ package at.fhooe.sail.ourproject.activitys
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -28,13 +29,10 @@ class ActivityA : AppCompatActivity() {
         setSupportActionBar(binding.activityAToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Den Listennamen aus dem Intent abrufen
         listTitle = intent.getStringExtra("list_title") ?: return
 
-        // Titel der App-Bar setzen
         supportActionBar?.title = listTitle
 
-        // Daten aus SharedPreferences abrufen
         val data: MutableList<ListItemData> = loadDataFromPreferences() ?: mutableListOf()
 
         with(binding.activityARecyclerview) {
@@ -61,22 +59,30 @@ class ActivityA : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             val input = EditText(this)
             builder.setView(input)
-            builder.setTitle("Bitte benennen Sie die Liste")
+            builder.setTitle("What do you want to add?")
             builder.setPositiveButton("OK") { _, _ ->
                 val title = input.text.toString()
                 if (title.isNotEmpty()) {
-                    // Neues Element zur Liste hinzufügen
                     data.add(ListItemData(title, R.drawable.recycle_bin))
                     binding.activityARecyclerview.adapter?.notifyDataSetChanged()
 
-                    // Daten in SharedPreferences speichern
                     saveDataToPreferences(data)
                 }
             }
-            builder.setNegativeButton("Abbrechen") { dialog, _ ->
+            builder.setNegativeButton("Abort") { dialog, _ ->
                 dialog.cancel()
             }
             builder.show()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

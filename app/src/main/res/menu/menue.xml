@@ -5,7 +5,13 @@
     <item
         android:id="@+id/activity_main_menuitem_changetitle"
         android:icon="@drawable/change_title"
-        android:title="Titel bearbeiten" />
+        android:title="Change Title" />
+    <item
+        android:id="@+id/activity_main_menuitem_changelistcolor"
+        android:title="Change List Color" />
+    <item
+        android:id="@+id/activity_main_menuitem_changeitemcolor"
+        android:title="Change Item Color" />
     <item
         android:id="@+id/activity_main_menuitem_about"
         android:icon="@drawable/information_icon"
