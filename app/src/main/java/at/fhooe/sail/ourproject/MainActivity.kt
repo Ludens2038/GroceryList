@@ -94,6 +94,8 @@ class MainActivity : AppCompatActivity() {
                     super.getItemOffsets(outRect, view, parent, state)
                     outRect.top = pad
                     outRect.bottom = pad
+                    outRect.left = pad
+                    outRect.right = pad
                 }
             })
         }

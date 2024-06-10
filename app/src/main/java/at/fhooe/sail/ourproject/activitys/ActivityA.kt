@@ -34,7 +34,6 @@ class ActivityA : AppCompatActivity() {
 
         supportActionBar?.title = listTitle
 
-        // Hintergrundbild von Intent übernehmen und anwenden
         currentBackgroundImage = intent.getIntExtra("background_image", R.drawable.background1)
         binding.root.setBackgroundResource(currentBackgroundImage)
 
@@ -54,6 +53,8 @@ class ActivityA : AppCompatActivity() {
                     super.getItemOffsets(outRect, view, parent, state)
                     outRect.top = pad
                     outRect.bottom = pad
+                    outRect.left = pad
+                    outRect.right = pad
                 }
             })
         }
@@ -94,14 +95,14 @@ class ActivityA : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val jsonData = gson.toJson(data)
-        editor.putString(listTitle, jsonData)  // Verwenden Sie den Listennamen als Schlüssel
+        editor.putString(listTitle, jsonData)
         editor.apply()
     }
 
     private fun loadDataFromPreferences(): MutableList<ListItemData>? {
         val sharedPreferences = getSharedPreferences("sublist_prefs", Context.MODE_PRIVATE)
         val gson = Gson()
-        val jsonData = sharedPreferences.getString(listTitle, null)  // Verwenden Sie den Listennamen als Schlüssel
+        val jsonData = sharedPreferences.getString(listTitle, null)
         val type = object : TypeToken<MutableList<ListItemData>>() {}.type
         return gson.fromJson(jsonData, type)
     }

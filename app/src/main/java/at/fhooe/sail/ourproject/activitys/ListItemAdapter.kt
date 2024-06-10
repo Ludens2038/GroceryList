@@ -41,7 +41,7 @@ class ListItemAdapter(private val mData: MutableList<ListItemData>, private val 
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val jsonData = gson.toJson(data)
-        editor.putString((mContext as ActivityA).listTitle, jsonData)  // Verwenden Sie den Listennamen als Schlüssel
+        editor.putString((mContext as ActivityA).listTitle, jsonData)
         editor.apply()
     }
 }

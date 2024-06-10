@@ -24,7 +24,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="42dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/information_header"
@@ -34,7 +34,7 @@
         android:id="@+id/information_imageview_haris"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="42dp"
         app:layout_constraintStart_toStartOf="@+id/information_imageview_niklas"
         app:layout_constraintTop_toBottomOf="@+id/information_imageview_niklas"
         app:srcCompat="@drawable/haris_rambo" />
@@ -76,4 +76,15 @@
         android:text="-Official Try-Hard\n-Niklases Pain\n-King of Dumplings\n-Beautiful Hair"
         app:layout_constraintStart_toStartOf="@+id/information_textview_haris_name"
         app:layout_constraintTop_toBottomOf="@+id/information_textview_haris_name" />
+
+    <TextView
+        android:id="@+id/information_textview_homepage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:text="www.handsome.at"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/information_imageview_haris" />
 </androidx.constraintlayout.widget.ConstraintLayout>
