@@ -2,13 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/activity_main_toolbar"
+        android:id="@+id/activity_a_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#83BAB7B7"
@@ -20,23 +18,25 @@
         app:titleTextColor="#000000" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_main_rv_list"
-        android:layout_width="409dp"
+        android:id="@+id/activity_a_recyclerview"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_a_toolbar" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
-        android:id="@+id/activity_main_b_addlist"
+        android:id="@+id/activity_a_addlist"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="+"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_a_recyclerview"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
